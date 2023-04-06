@@ -1,79 +1,71 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import AuthContext from '../context/AuthProvider';
-import axios from '../api/axios';
+import React from 'react'
+import { useRef, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+
+import axios from 'axios';
 
 const LOGIN_URL = '/api/authentication/signin';
 
-
-export default function Login() {
-
-
+const Login = () => {
+    const { setAuth } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const userRef = useRef();
-    const {setAuth} = useContext(AuthContext);
     const errRef = useRef();
 
-
-    const [user, setUser] =useState('');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState('');
 
 
-
-    useEffect(() =>{
+    useEffect(() => {
         userRef.current.focus();
-    }, []);
+    }, [])
 
-
-    useEffect(() =>{
+    useEffect(() => {
         setErrMsg('');
-    }, [user, password]);
-
+    }, [user, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try{
-            const response = await axios.post(LOGIN_URL, JSON.stringify({username: user, password : password}), //21 minutes in 
-            {
-                headers: {'Content-Type': 'application/json'},
-                withCredentials: true
-
-            }); 
+        try {
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({username:  user, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
             console.log(JSON.stringify(response?.data));
-            console.log(JSON.stringify(response)); //stringify the whole response
-
+            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-
-            setAuth({user,password, roles ,accessToken})
-
-            console.log(user, password)
+            setAuth({ username: user, password, roles, accessToken });
             setUser('');
             setPassword('');
-            setSuccess(true);
-        }catch(err){
-            if(!err?.response){
-                setErrMsg("NO server response");
-            }else if(err.response?.status === 400){
-                setErrMsg("Missing username or password");
-            }else if(err.repsonse?.status === 401){
-                setErrMsg("Unauthorized");
-            }else{
-                setErrMsg("Login failed");
+            navigate(from, {replace:true});
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing Username or Password');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Login Failed');
             }
             errRef.current.focus();
         }
-
     }
 
-
-  return (
-    <section>
-        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-        <h1>Sign In</h1>
-
-        <form onSubmit={handleSubmit}>
+    return (
+                <section>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Sign In</h1>
+                    <form onSubmit={handleSubmit}>
                         <label htmlFor="username">Username:</label>
                         <input
                             type="text"
@@ -84,6 +76,7 @@ export default function Login() {
                             value={user}
                             required
                         />
+
                         <label htmlFor="password">Password:</label>
                         <input
                             type="password"
@@ -101,6 +94,9 @@ export default function Login() {
                             <a href="#">Sign Up</a>
                         </span>
                     </p>
-    </section>
-  )
+                </section>
+
+    )
 }
+
+export default Login
