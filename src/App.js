@@ -29,19 +29,19 @@ function App() {
 
 
         {/*public routes*/}
-        <Route path="login" element={<Login />} />
-        <Route path="about" element={<About />} />
-        <Route path="register" element={<Register />} />
-        <Route path="links" element={<Linkpage />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="test" element={<TestRoute/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/links" element={<Linkpage />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/test" element={<TestRoute/>} />
 
         {/*Protected Routes*/} 
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="secure" element={<SecureAbout />} />
-          <Route path="addEmployee" element={<AddEmployeeForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/secure" element={<SecureAbout />} />
+          <Route path="/addEmployee" element={<AddEmployeeForm />} />
 
         </Route>
         {/*Exception/Edge case Route*/}
