@@ -11,7 +11,7 @@ class employeeService {
     }
 
     getAllEmployees(){
-        return axios.get(API_URL)
+        return axios.get(API_URL);
     }
 
     deleteEmployee(employee){
@@ -23,4 +23,4 @@ class employeeService {
     }
 }
 
-export default new employeeService;
+export default new employeeService();

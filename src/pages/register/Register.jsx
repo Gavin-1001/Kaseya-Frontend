@@ -37,7 +37,7 @@ const Register = () => {
     //stops the register creds being displayed in url
 
     setSubmitted(true);
-    if (!user.username || !user.password || !user.role) {
+    if (!user.username || !user.password || !user.role) { //add || !user.role
       return; //checks if username and password fields are not empty
     }
     setLoading(true);
@@ -86,9 +86,10 @@ const Register = () => {
               onChange={(e) => handleChange(e)}
               required
             />
-            {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
+        {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
             <div className="invalid-feedback">Role IS REQUIRED!!</div>
-          </div>
+          </div> 
+          
 
 
 
