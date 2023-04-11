@@ -2,6 +2,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import Role from '../common/models/Role';
 
 const Navbar = () => {
     const currentUser = useSelector((state) => state.user);
@@ -20,7 +21,7 @@ const Navbar = () => {
         {/* <img src="#" className="App-Logo" alt="image" /> */}
       </a>
       <div className="navbar-nav me-auto">
-        {currentUser?.role === Role.ADMIN && (
+        {currentUser?.role === Role.USER && (
           <li className='nav-item'>
             <NavLink to="/admin" className="nav-link">
               Admin
