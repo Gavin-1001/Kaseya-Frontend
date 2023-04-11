@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import AuthService from "../../service/AuthService";
+import { setCurrentUser } from "../../redux/store/actions/users";
 
 const Login = () => {
   const [user, setUser] = useState(new User("", "", ""));
