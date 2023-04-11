@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import User from "../../common/models/User";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import AuthService from "../../service/AuthService";
@@ -57,50 +57,67 @@ const Login = () => {
       });
   };
 
-  return ( 
+  return (
     <div className="container mt-5">
-        <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
-            <FontAwesomeIcon icon={faUserCircle} className="ms-auto me-auto user-icon"/>
+      <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
+        <FontAwesomeIcon
+          icon={faUserCircle}
+          className="ms-auto me-auto user-icon"
+        />
 
-            {errorMessage && (
-                <div className="alert alert-danger">{errorMessage}</div>
-            )}
-            <form onSubmit={(e) => handleLogin(e)}
-                className={submitted? "was-validated": ""}
-                noValidate // does not validate the form
-            >
-                <div className="form-group">
-                    {/*USERNAME*/}
-                    <label htmlFor="username">Username</label>
-                    <input type="text" name="username" className="form-control"
-                        placeholder="Enter your username here" value={user.username}
-                        onChange={(e) => handleChange(e)} required />
-                        {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
-                        <div className="invalid-feedback">
-                            USERNAME IS REQUIRED!!
-                        </div>
-                </div>
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
+        <form
+          onSubmit={(e) => handleLogin(e)}
+          className={submitted ? "was-validated" : ""}
+          noValidate // does not validate the form
+        >
+          <div className="form-group">
+            {/*USERNAME*/}
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-control"
+              placeholder="Enter your username here"
+              value={user.username}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
+            <div className="invalid-feedback">USERNAME IS REQUIRED!!</div>
+          </div>
 
-                <div className="form-group">
-                    {/*PASSWORD*/}
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" className="form-control"
-                        placeholder="Enter your password here" value={user.password}
-                        onChange={(e) => handleChange(e)} required />
-                        {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
-                        <div className="invalid-feedback">
-                            PASSWORD IS REQUIRED!!
-                        </div>
-                </div>
+          <div className="form-group">
+            {/*PASSWORD*/}
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="Enter your password here"
+              value={user.password}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
+            <div className="invalid-feedback">PASSWORD IS REQUIRED!!</div>
+          </div>
 
-                {/*Add the button*/}
-                <button className="btn btn-primary w-100 mt-3">Sign in</button>
-                <Link to='/register' className="btn btn-link" style={{color:"darkgray"}}>Create Account</Link>
-
-            </form>
-        </div>
+          {/*Add the button*/}
+          <button className="btn btn-primary w-100 mt-3">Sign in</button>
+        </form>
+        <Link
+          to="/register"
+          className="btn btn-link"
+          style={{ color: "darkgray" }}
+        >
+          Create an Account??
+        </Link>
+      </div>
     </div>
-  )
+  );
 };
-//} think this goes here 
+//} think this goes here. EDIT: nvm
 export default Login;
