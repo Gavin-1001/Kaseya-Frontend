@@ -6,12 +6,14 @@ const Dashboard = () => {
 
   //implment a mounted method, which is a callback method that is invoked immediately after the
   //explaination lecture 77 1:15
+  
 
   useEffect(() => {
     employeeService.getAllEmployees().then((response) => {
         setEmployeeList(response.data);
     });
 }, []);
+//CHECK SENOL's CODE FOR THE CORS ISSUE IT COULD BE A BACKEND ISSUE. 
 
   return( 
     <div>

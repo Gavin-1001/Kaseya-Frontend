@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { clearCurrentUser } from "../redux/store/actions/users";
 import { Role } from "../common/models/Role";
 
@@ -62,10 +62,10 @@ const Navbar = () => {
           {/* <li className="nav-item">
             <NavLink to="/profile">{currentUser.name}</NavLink>
           </li> */}
-          <li className="nav-item -auto">
-            <a href="#" className="nav-item" onClick={() => logout()}>
+          <li className="nav-item">
+            <Link to="/logout" className="nav-link" onClick={() => logout()}>
               Logout
-            </a>
+            </Link>
           </li>
         </div>
       )}

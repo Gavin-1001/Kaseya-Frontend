@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFoundException/NotFound";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { AuthGuard } from "./AuthGuard/auth.guard";
 import { Role } from "./common/models/Role";
+import Logout from "./pages/Logout/Logout";
 
 function App() {
   return (
@@ -25,9 +26,11 @@ function App() {
               </AuthGuard>
             }
           />
+          <Route path="/logout" element={<Logout />} /> {/*Maybe this needs to be in encased in an AuthGuard. Should be alright*/}
           <Route path="/register" element={<Register />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
+          
         </Routes>
       </div>
     </BrowserRouter>
