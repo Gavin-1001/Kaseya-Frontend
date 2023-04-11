@@ -1,16 +1,4 @@
-import Register from "./components/Register";
-import Login from "./components/Login";
 
-import Home from "./components/Home";
-
-
-import SecureAbout from "./pages/SecureAbout";
-
-import RequireAuth from "./components/RequireAuth";
-import TestRoute from "./pages/TestRoute";
-import Missing from "./pages/Missing";
-
-import { Routes, Route} from 'react-router-dom'
 
 
 function App() {
@@ -54,20 +42,7 @@ function App() {
 
     // </Routes>
  
-
-    <Routes>
-        {/* <Route path='' element={<Home />} /> */}
-        <Route path='/' element={<Login />} />
-        <Route
-          path='/home'
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-    </Routes>
-
+    <div></div>
 
   );
 
