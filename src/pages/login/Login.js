@@ -1,50 +1,60 @@
-import React, { useEffect, useState } from 'react'
-import User from '../../common/models/User'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import User from "../../common/models/User";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [user, setUser] = useState(new User("", "", ""))
-    const [loading, setLoading] = useState(false); //sets a loading state to let the user know the page is loading 
-    const [submitted, setSubmitted] = useState(false);
-    const[errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(new User("", "", ""));
+  const [loading, setLoading] = useState(false); //sets a loading state to let the user know the page is loading
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user);
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    useEffect(() =>{
-        if(currentUser?.id){
-            navigate('/profile');
-        }
-    }, []);
-
-    const handleChange = (e) =>{
-            const {name, value} = e.target;
-            setUser((previousState) => {
-                return{
-                ...previousState,
-                [name]: value,
-                };
-            });
-        };
-
-        const handleLogin = (e) => {
-            e.preventDefault(); 
-            //stops the login creds being displayed in url
-
-            setSubmitted(true);
-            if(!user.username || !user.password){
-                return;//checks if username and password fields are not empty
-            }
-            setLoading(true);
-        }
+  useEffect(() => {
+    if (currentUser?.id) {
+      navigate("/profile");
     }
+  }, []);
 
-  return (
-    <div>Login</div>
-  )
-}
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser((previousState) => {
+      return {
+        ...previousState,
+        [name]: value,
+      };
+    });
+  };
 
-export default Login
+  const handleLogin = (e) => {
+    e.preventDefault();
+    //stops the login creds being displayed in url
+
+    setSubmitted(true);
+    if (!user.username || !user.password) {
+      return; //checks if username and password fields are not empty
+    }
+    setLoading(true);
+
+    //Authenitcation next
+    AuthService.login(user)
+      .then((response) => {
+        //set user in session
+        dispatch(setCurrentUser(response.data));
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage("USERNAME OR PASSWORD IS NOT VALID!!!");
+        setLoading(false);
+      });
+  };
+
+  return <div>Login</div>;
+};
+//} think this goes here 
+export default Login;
