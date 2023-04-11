@@ -16,3 +16,5 @@ const userReducer = (state = {}, action) => {
             //json will be initialized from the localStorage
     }
 }
+
+export default userReducer;

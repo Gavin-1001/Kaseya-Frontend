@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import User from "../../common/models/User";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import AuthService from "../../service/AuthService";
 import { setCurrentUser } from "../../redux/store/actions/users";
 
@@ -61,11 +59,7 @@ const Login = () => {
   return (
     <div className="container mt-5">
       <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="ms-auto me-auto user-icon"
-        />
-
+        <h3>Sign in</h3> {/*NoT really happy with this but style later if you get a chance*/}
         {errorMessage && (
           <div className="alert alert-danger">{errorMessage}</div>
         )}

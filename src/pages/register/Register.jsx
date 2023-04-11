@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import User from "../../common/models/User";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import './Register.css';
 import AuthService from "../../service/AuthService";
 
 const Register = () => {
-  const [user, setUser] = useState(new User("", "", ""));
+  const [user, setUser] = useState(new User('', '', ''));
   const [loading, setLoading] = useState(false); //sets a loading state to let the user know the page is loading
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +14,7 @@ const Register = () => {
   const currentUser = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -38,7 +37,7 @@ const Register = () => {
     //stops the register creds being displayed in url
 
     setSubmitted(true);
-    if (!user.username || !user.password || !user.name) {
+    if (!user.username || !user.password || !user.role) {
       return; //checks if username and password fields are not empty
     }
     setLoading(true);
@@ -66,11 +65,7 @@ const Register = () => {
   return (
     <div className="container mt-5">
       <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="ms-auto me-auto user-icon"
-        />
-
+      <h3>Sign up</h3> {/*NoT really happy with this but style later if you get a chance*/}
         {errorMessage && (
           <div className="alert alert-danger">{errorMessage}</div>
         )}
@@ -80,19 +75,19 @@ const Register = () => {
           noValidate // does not validate the form
         >
             <div className="form-group">
-            {/*USER's NAME*/}
-            <label htmlFor="name">Your name</label>
+            {/*USER's Role*/}
+            <label htmlFor="role">Your role</label>
             <input
               type="text"
-              name="name"
+              name="role"
               className="form-control"
-              placeholder="Enter your name here"
-              value={user.name}
+              placeholder="Enter your role here"
+              value={user.role}
               onChange={(e) => handleChange(e)}
               required
             />
             {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
-            <div className="invalid-feedback">NAME IS REQUIRED!!</div>
+            <div className="invalid-feedback">Role IS REQUIRED!!</div>
           </div>
 
 

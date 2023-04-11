@@ -38,7 +38,7 @@ const Navbar = () => {
       </div>
       {/*NAVLINKS FOR LOGIN AND REGISTER*/}
       {!currentUser && (
-        <div className="navbar-nav me-auto">
+        <div className="navbar-nav ms-auto">
           <li className="nav-item">
             <NavLink to="/register" className="nav-link">
               Sign up

@@ -1,9 +1,9 @@
 export default class User{
-    constructor (id, username, password, role, name){
+    constructor (id, username, password, role, token){
         this.id = id;
         this.username = username;
-        this.name = name; //maybe add a name field for reigster
         this.password = password;
+        this.token = token;
         this.role = role;
     }
 }

@@ -1,6 +1,8 @@
 import { BASE_API_URL } from "../api/baseUrl"
 import axios from 'axios';
 
+
+
 const BASE_AUTH_URL = BASE_API_URL + '/api/authentication';
 
 class AuthService{
@@ -10,7 +12,7 @@ class AuthService{
         return axios.post(BASE_AUTH_URL + '/signin', user);
     }
 
-
+    //http://localhost:8080/api/authentication/register
     register(user){
         return axios.post(BASE_AUTH_URL + '/register', user);
     }
