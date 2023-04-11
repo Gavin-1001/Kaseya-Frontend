@@ -51,10 +51,15 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        //Todo:
+        // Todo:v
         //add custom user error pasges later. Check if error is 409 => username password not valid. setsErrorMsg to something like username not found 
             //don't expose the users creds by allowing 
-        if(error?.response?.status)
+        if(error?.response?.status === 409){
+            setErrorMessage("username or password is not valid")
+        }else{
+            setErrorMessage("Unexpected error. Try again.");
+        }
+        setLoading(false);
       });
   };
 
@@ -70,10 +75,29 @@ const Login = () => {
           <div className="alert alert-danger">{errorMessage}</div>
         )}
         <form
-          onSubmit={(e) => handleLogin(e)}
+          onSubmit={(e) => handleRegister(e)}
           className={submitted ? "was-validated" : ""}
           noValidate // does not validate the form
         >
+            <div className="form-group">
+            {/*USER's NAME*/}
+            <label htmlFor="name">Your name</label>
+            <input
+              type="text"
+              name="name"
+              className="form-control"
+              placeholder="Enter your name here"
+              value={user.name}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            {/*DISPLAYS ANY ERROR MESSAGE RELATING TO FIELD*/}
+            <div className="invalid-feedback">NAME IS REQUIRED!!</div>
+          </div>
+
+
+
+
           <div className="form-group">
             {/*USERNAME*/}
             <label htmlFor="username">Username</label>
@@ -107,14 +131,14 @@ const Login = () => {
           </div>
 
           {/*Add the button*/}
-          <button className="btn btn-primary w-100 mt-3">Sign in</button>
+          <button className="btn btn-primary w-100 mt-3">Sign up</button>
         </form>
         <Link
-          to="/register"
+          to="/login"
           className="btn btn-link"
           style={{ color: "darkgray" }}
         >
-          Create an Account??
+          I have an Account
         </Link>
       </div>
     </div>
