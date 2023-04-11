@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import AuthService from "../../service/AuthService";
 
-const Login = () => {
+const Register = () => {
   const [user, setUser] = useState(new User("", "", ""));
   const [loading, setLoading] = useState(false); //sets a loading state to let the user know the page is loading
   const [submitted, setSubmitted] = useState(false);
@@ -35,7 +35,7 @@ const Login = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    //stops the login creds being displayed in url
+    //stops the register creds being displayed in url
 
     setSubmitted(true);
     if (!user.username || !user.password || !user.name) {
@@ -145,4 +145,4 @@ const Login = () => {
   );
 };
 //} think this goes here. EDIT: nvm
-export default Login;
+export default Register;
