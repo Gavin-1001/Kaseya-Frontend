@@ -47,7 +47,7 @@ const Login = () => {
       .then((response) => {
         //set user in session
         dispatch(setCurrentUser(response.data));
-        navigate("/profile");
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error);

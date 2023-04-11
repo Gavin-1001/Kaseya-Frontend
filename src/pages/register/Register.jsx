@@ -53,7 +53,7 @@ const Register = () => {
         // Todo:v
         //add custom user error pasges later. Check if error is 409 => username password not valid. setsErrorMsg to something like username not found 
             //don't expose the users creds by allowing 
-        if(error?.response?.status === 409){
+        if(error?.response?.status === 409){ // 409
             setErrorMessage("username or password is not valid")
         }else{
             setErrorMessage("Unexpected error. Try again.");
