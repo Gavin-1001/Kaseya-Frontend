@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import employeeService from "../../service/employeeService";
+import Employee from "./../../common/models/Employee";
+import employee from "./../../common/models/Employee";
+import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
 
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
+  const [employeeSelect, setEmployeeSelect] = useState(new Employee());
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const deleteEmployeeComponent = useRef();
+  
 
   //implment a mounted method, which is a callback method that is invoked immediately after the
   //explaination lecture 77 1:15
@@ -13,12 +21,30 @@ const Dashboard = () => {
       console.log(response.data);
     });
   }, []);
-  //CHECK SENOL's CODE FOR THE CORS ISSUE IT COULD BE A BACKEND ISSUE.
+
+  const deleteEmployeeRequest= (employee) => {
+    setEmployeeSelect(employee);
+    deleteEmployeeComponent.current?.showDeleteModal();
+  };
+
+
+
+  const deleteEmployee = () => {
+    employeeService.deleteEmployee(employeeSelect).then(_=>{
+        setEmployeeList(employeeList.filter(x => x.id !== employeeSelect.id));
+    }).catch(err => {
+        setErrorMessage("Unexpected Error");
+        console.log(err);
+    })
+  }
 
   return (
     <div>
       <div className="container">
         <div className="pt-5">
+            {errorMessage && 
+                <div className="alert alert-danger">{errorMessage}</div>
+            }
           <div className="card">
             <div className="card-header">
               <div className="row">
@@ -40,7 +66,6 @@ const Dashboard = () => {
                     <th scope="col">Active</th>
                     <th scope="col">Age</th>
                     <th scope="col">Actions</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -55,15 +80,10 @@ const Dashboard = () => {
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
                       <td>
-                        {/* <button className="btn btn-primary me-1" onClick={() => editEmployeeRequest(item)}> */}
-                        <button className="btn btn-primary me-1">
-                            Edit
-                        </button>
-                        {/* <button className="btn btn-danger" onClick={() => deleteEmployeeRequest(item)}> */}
-                        <button className="btn btn-danger">
-                            Delete
-                        </button>
-                    </td>
+                        <button className="btn btn-primary me-2">EDIT</button>
+                        <button className="btn btn-danger" onClick={() => deleteEmployeeRequest(item)}>DELETE</button>
+
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -72,6 +92,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <EmployeeDelete ref={deleteEmployeeComponent} onConfirmed={() => deleteEmployee()} />
     </div>
   );
 };
