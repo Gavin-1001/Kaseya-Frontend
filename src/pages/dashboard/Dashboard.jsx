@@ -7,10 +7,9 @@ import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
   const [employeeSelect, setEmployeeSelect] = useState(new Employee());
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const deleteEmployeeComponent = useRef();
-  
 
   //implment a mounted method, which is a callback method that is invoked immediately after the
   //explaination lecture 77 1:15
@@ -18,33 +17,42 @@ const Dashboard = () => {
   useEffect(() => {
     employeeService.getAllEmployees().then((response) => {
       setEmployeeList(response.data);
-      console.log(response.data);
     });
   }, []);
 
-  const deleteEmployeeRequest= (employee) => {
+// useEffect(() => {
+//     employeeService.getAllEmployees().then((response) => {
+//         setEmployeeList(response.data);
+//     });
+// }, []);
+
+  const deleteEmployeeRequest = (employee) => {
+    console.log("3 HERE")
     setEmployeeSelect(employee);
     deleteEmployeeComponent.current?.showDeleteModal();
   };
 
-
-
   const deleteEmployee = () => {
-    employeeService.deleteEmployee(employeeSelect).then(_=>{
-        setEmployeeList(employeeList.filter(x => x.id !== employeeSelect.id));
-    }).catch(err => {
+    employeeService
+      .deleteEmployee(employeeSelect)
+      console.log("2 HERE")
+      .then((_) => {
+        setEmployeeList(employeeList.filter((x) => x.id !== employeeSelect.id));
+      })
+      .catch((err) => {
+        console.log("1 HERE")
         setErrorMessage("Unexpected Error");
         console.log(err);
-    })
-  }
+      });
+  };
 
   return (
     <div>
       <div className="container">
         <div className="pt-5">
-            {errorMessage && 
-                <div className="alert alert-danger">{errorMessage}</div>
-            }
+          {errorMessage && (
+            <div className="alert alert-danger">{errorMessage}</div>
+          )}
           <div className="card">
             <div className="card-header">
               <div className="row">
@@ -74,15 +82,19 @@ const Dashboard = () => {
                       <th scope="row">{index + 1}</th>
                       <td>{item.employeeFirstName}</td>
                       <td>{item.employeeLastName}</td>
-                      <td>{item.employeeDateOfBirth}</td>
+                      <td>{new Date(item.employeeDateOfBirth).toLocaleDateString()}</td>
                       <td>{item.employeeEmailAddress}</td>
                       <td>{item.employeeSkillLevel}</td>
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
                       <td>
                         <button className="btn btn-primary me-2">EDIT</button>
-                        <button className="btn btn-danger" onClick={() => deleteEmployeeRequest(item)}>DELETE</button>
-
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteEmployeeRequest(item)}
+                        >
+                          DELETE
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -92,7 +104,10 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <EmployeeDelete ref={deleteEmployeeComponent} onConfirmed={() => deleteEmployee()} />
+      <EmployeeDelete
+        ref={deleteEmployeeComponent}
+        onConfirmed={() => deleteEmployee()}
+      />
     </div>
   );
 };
