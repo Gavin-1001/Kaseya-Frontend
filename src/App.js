@@ -24,9 +24,9 @@ function App() {
               <AuthGuard role={[Role.USER]}>
                 <Dashboard />
               </AuthGuard>
-            }
+            } 
           />
-          <Route path="/logout" element={<Logout />} /> {/*Maybe this needs to be in encased in an AuthGuard. Should be alright*/}
+          <Route path="/logout" element={<Logout />} /> {/*Maybe this needs to be in encased in an AuthGuard. Should be*/}
           <Route path="/register" element={<Register />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />

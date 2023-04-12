@@ -12,6 +12,7 @@ class employeeService {
 
     getAllEmployees(){
         return axios.get(API_URL);
+        //return axios.get(API_URL, + '/get', {headers: authHeaders()});
     }
 
     deleteEmployee(employee){
