@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { clearCurrentUser } from "../redux/store/actions/users";
-import { Role } from "../common/models/Role";
+//import { Role } from "../common/models/Role";
 
 const Navbar = () => {
   const currentUser = useSelector((state) => state.user);
