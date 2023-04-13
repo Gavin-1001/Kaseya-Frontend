@@ -21,11 +21,11 @@ const Dashboard = () => {
     });
   }, []);
 
-// useEffect(() => {
-//     employeeService.getAllEmployees().then((response) => {
-//         setEmployeeList(response.data);
-//     });
-// }, []);
+  // useEffect(() => {
+  //     employeeService.getAllEmployees().then((response) => {
+  //         setEmployeeList(response.data);
+  //     });
+  // }, []);
 
   const deleteEmployeeRequest = (employee) => {
     setEmployeeSelect(employee);
@@ -33,9 +33,9 @@ const Dashboard = () => {
   };
 
   const createEmployeeRequest = () => {
-    setEmployeeSelect(new Employee('', '', '', '', '', '', ''));
+    setEmployeeSelect(new Employee("", "", "", "", "", "", ""));
     addEmployeeComponent.showEmployeeModal();
-  }
+  };
 
   const deleteEmployee = () => {
     employeeService
@@ -63,8 +63,13 @@ const Dashboard = () => {
                 <div className="col-6">
                   <h3>All Employees</h3>
                 </div>
-                <div className="btn btn-primary" onClick={() => createEmployeeRequest()}>
-                    Add an Employee!!
+                <div className="col-6 text-end">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => createEmployeeRequest()}
+                  >
+                    Add an Employee
+                  </button>
                 </div>
               </div>
             </div>
@@ -89,7 +94,11 @@ const Dashboard = () => {
                       <th scope="row">{index + 1}</th>
                       <td>{item.employeeFirstName}</td>
                       <td>{item.employeeLastName}</td>
-                      <td>{new Date(item.employeeDateOfBirth).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(
+                          item.employeeDateOfBirth
+                        ).toLocaleDateString()}
+                      </td>
                       <td>{item.employeeEmailAddress}</td>
                       <td>{item.employeeSkillLevel}</td>
                       <td>{item.isActive.toString()}</td>
