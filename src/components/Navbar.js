@@ -58,6 +58,8 @@ const Navbar = () => {
         </div>
       )}
 
+
+        {/*LOGOUT*/}
       {currentUser && (
         <div className="navbar-nav ms-auto">
           {/* <li className="nav-item">

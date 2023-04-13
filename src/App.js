@@ -27,7 +27,7 @@ function App() {
               </AuthGuard>
             } 
           />
-          <Route path="/logout" element={<Logout />} /> {/*Maybe this needs to be in encased in an AuthGuard. Should be*/}
+          <Route path="/logout" element={<Logout />} /> 
           <Route path="/register" element={<Register />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />

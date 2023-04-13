@@ -50,7 +50,7 @@ const Dashboard = () => {
   };
 
   return (
-    //MAYBE ADD MATERIALS UI AT THE END
+    // ***** MAYBE ADD MATERIALS UI AT THE END *****
     <div>
       <div className="container">
         <div className="pt-5">
