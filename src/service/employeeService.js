@@ -16,12 +16,13 @@ class employeeService {
     }
 
     deleteEmployee(employee){
-        return axios.delete(API_URL, + '/' + employee.id, {headers: authHeaders()});
+        return axios.delete(API_URL + '/' + employee.id, {headers: authHeaders()});
     }
 
-    updateEmployee(employee){
-        return axios.put(API_URL, + '/' + employee.id, {headers: authHeaders()});
-    }
+    // updateEmployee(employee){
+    //     return axios.put(API_URL, + '/' + employee.id, {headers: authHeaders()});
+
+    // }
 }
 
 export default new employeeService();

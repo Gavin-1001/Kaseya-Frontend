@@ -21,13 +21,13 @@ const Navbar = () => {
         {/* <img src="#" className="App-Logo" alt="image" /> */}
       </a>
       <div className="navbar-nav me-auto">
-        {currentUser?.role === Role.USER && (
+        {/* {currentUser?.role === Role.USER && (
           <li className="nav-item">
             <NavLink to="/admin" className="nav-link">
               Admin
             </NavLink>
           </li>
-        )}
+        )} */}
 
         <li>
           <NavLink to="/home" className="nav-link">
@@ -40,6 +40,7 @@ const Navbar = () => {
             Dashboard
           </NavLink>
         </li>
+
       </div>
       {/*NAVLINKS FOR LOGIN AND REGISTER*/}
       {!currentUser && (

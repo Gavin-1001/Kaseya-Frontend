@@ -31,17 +31,10 @@ const EmployeeDelete = forwardRef((props, ref) => {
       <div className="modal-footer">
         <button
           type="button"
-          className="btn btn-secondary"
-          onClick={() => setShow(false)}
-        >
-          No
-        </button>
-        <button
-          type="button"
           className="btn btn-danger"
           onClick={() => deleteEmployee()}
         >
-          YEs
+          Yes
         </button>
       </div>
     </Modal>

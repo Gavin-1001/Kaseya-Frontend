@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import employeeService from "../../service/employeeService";
 import Employee from "./../../common/models/Employee";
-import employee from "./../../common/models/Employee";
+
 import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
 
 const Dashboard = () => {
@@ -10,9 +10,10 @@ const Dashboard = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const deleteEmployeeComponent = useRef();
+  const addEmployeeComponent = useRef();
 
-  //implment a mounted method, which is a callback method that is invoked immediately after the
-  //explaination lecture 77 1:15
+  //implement a mounted method, which is a callback method that is invoked immediately after the
+  //explanation lecture 77 1:15
 
   useEffect(() => {
     employeeService.getAllEmployees().then((response) => {
@@ -27,26 +28,29 @@ const Dashboard = () => {
 // }, []);
 
   const deleteEmployeeRequest = (employee) => {
-    console.log("3 HERE")
     setEmployeeSelect(employee);
     deleteEmployeeComponent.current?.showDeleteModal();
   };
 
+  const createEmployeeRequest = () => {
+    setEmployeeSelect(new Employee('', '', '', '', '', '', ''));
+    addEmployeeComponent.showEmployeeModal();
+  }
+
   const deleteEmployee = () => {
     employeeService
       .deleteEmployee(employeeSelect)
-      console.log("2 HERE")
       .then((_) => {
         setEmployeeList(employeeList.filter((x) => x.id !== employeeSelect.id));
       })
       .catch((err) => {
-        console.log("1 HERE")
         setErrorMessage("Unexpected Error");
         console.log(err);
       });
   };
 
   return (
+    //MAYBE ADD MATERIALS UI AT THE END
     <div>
       <div className="container">
         <div className="pt-5">
@@ -58,6 +62,9 @@ const Dashboard = () => {
               <div className="row">
                 <div className="col-6">
                   <h3>All Employees</h3>
+                </div>
+                <div className="btn btn-primary" onClick={() => createEmployeeRequest()}>
+                    Add an Employee!!
                 </div>
               </div>
             </div>
