@@ -6,7 +6,7 @@ import { Modal } from "react-bootstrap";
 const EmployeeSave = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     //interaction with parent
-    showProductModal() {
+    showEmployeeModal() {
       setTimeout(() => {
         setShow(true);
       }, 0);
@@ -79,7 +79,7 @@ const EmployeeSave = forwardRef((props, ref) => {
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
             )}
-        {/*employeeFirstName*/}
+            {/*employeeFirstName*/}
             <div className="form-group">
               <label htmlFor="employeeFirstName">Employee First Name</label>
               <input
@@ -92,12 +92,14 @@ const EmployeeSave = forwardRef((props, ref) => {
                 required
               />
               <div className="invalid-feedback">
-                    Employee First Name is required!!
+                Employee First Name is required!!
               </div>
             </div>
-        {/*employeeLastName*/}
+            {/*employeeLastName*/}
             <div className="form-group">
-              <label htmlFor="employeeEmailAddress">Employee Email Address</label>
+              <label htmlFor="employeeEmailAddress">
+                Employee Email Address
+              </label>
               <input
                 type="text"
                 name="employeeEmailAddress"
@@ -108,7 +110,7 @@ const EmployeeSave = forwardRef((props, ref) => {
                 required
               />
               <div className="invalid-feedback">
-                    Employee Email Address is required!!
+                Employee Email Address is required!!
               </div>
             </div>
 
@@ -124,7 +126,7 @@ const EmployeeSave = forwardRef((props, ref) => {
                 required
               />
               <div className="invalid-feedback">
-                    Employee Date of Birth is required!!
+                Employee Date of Birth is required!!
               </div>
             </div>
 
@@ -140,7 +142,7 @@ const EmployeeSave = forwardRef((props, ref) => {
                 required
               />
               <div className="invalid-feedback">
-                    Employee Skill Level is required!!
+                Employee Skill Level is required!!
               </div>
             </div>
 
@@ -156,7 +158,7 @@ const EmployeeSave = forwardRef((props, ref) => {
                 required
               />
               <div className="invalid-feedback">
-                    Employee Status is required!!
+                Employee Status is required!!
               </div>
             </div>
 
@@ -171,13 +173,20 @@ const EmployeeSave = forwardRef((props, ref) => {
                 onChange={(e) => handleChange(e)}
                 required
               />
-              <div className="invalid-feedback">
-                    Employee Age is required!!
-              </div>
+              <div className="invalid-feedback">Employee Age is required!!</div>
             </div>
-
-
-
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => setShow(false)}
+            >
+              Close
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Add Employee
+            </button>
           </div>
         </form>
       </Modal>
