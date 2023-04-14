@@ -40,7 +40,6 @@ const Navbar = () => {
             Dashboard
           </NavLink>
         </li>
-
       </div>
       {/*NAVLINKS FOR LOGIN AND REGISTER*/}
       {!currentUser && (
@@ -58,8 +57,7 @@ const Navbar = () => {
         </div>
       )}
 
-
-        {/*LOGOUT*/}
+      {/*LOGOUT*/}
       {currentUser && (
         <div className="navbar-nav ms-auto">
           {/* <li className="nav-item">

@@ -3,6 +3,7 @@ import employeeService from "../../service/employeeService";
 import Employee from "./../../common/models/Employee";
 
 import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
+import { EmployeeSave } from "../../components/modals/EmployeeSave";
 
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
@@ -34,7 +35,7 @@ const Dashboard = () => {
 
   const createEmployeeRequest = () => {
     setEmployeeSelect(new Employee("", "", "", "", "", "", ""));
-    addEmployeeComponent.showEmployeeModal();
+    addEmployeeComponent.current?.showEmployeeModal();
   };
 
   const deleteEmployee = () => {
@@ -47,10 +48,26 @@ const Dashboard = () => {
         setErrorMessage("Unexpected Error");
         console.log(err);
       });
+    }
+    const watchSaveEmployee = (employee) => {
+      let itemIndex = employeeList.findIndex((item) => item.id === employee.id);
+
+      if (itemIndex !== -1) {
+        const newList = employeeList.map((item) => {
+          if (item.id === employee.id) {
+            return employee;
+          }
+          return item;
+        });
+        setEmployeeList(newList);
+      } else {
+        const newList = employeeList.concat(employee);
+        setEmployeeList(newList);
+      }
   };
 
   return (
-    // ***** MAYBE ADD MATERIALS UI AT THE END *****
+    // ***** MAYBE ADD MATERIALS UI FOR TABLE AT THE END *****
     <div>
       <div className="container">
         <div className="pt-5">
@@ -68,7 +85,7 @@ const Dashboard = () => {
                     className="btn btn-primary"
                     onClick={() => createEmployeeRequest()}
                   >
-                    Add an Employee
+                    Add Employee!
                   </button>
                 </div>
               </div>
@@ -120,10 +137,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <EmployeeDelete
-        ref={deleteEmployeeComponent}
-        onConfirmed={() => deleteEmployee()}
-      />
+            <EmployeeSave ref={addEmployeeComponent} employee={employeeSelect} onSaved={(e) => watchSaveEmployee(e)}/>
+            <EmployeeDelete ref={deleteEmployeeComponent} onConfirmed={() => deleteEmployee()}/>
     </div>
   );
 };

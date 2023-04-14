@@ -18,7 +18,7 @@ const EmployeeDelete = forwardRef((props, ref) => {
   return (
     <Modal show={show}>
       <div className="modal-header">
-        <h5 className="modal-title">Confirmation</h5>
+        <h5 className="modal-title">Delete Employee?</h5>
         <button
           type="button"
           className="btn-close"
