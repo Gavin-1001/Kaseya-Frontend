@@ -48,22 +48,30 @@ const Dashboard = () => {
         setErrorMessage("Unexpected Error");
         console.log(err);
       });
-    }
-    const watchSaveEmployee = (employee) => {
-      let itemIndex = employeeList.findIndex((item) => item.id === employee.id);
+  };
+  {
+    /*Update Emploee will use the same code for modal as the addEmployee modal*/
+  }
+  const updateEmployeeRequest = (item) => {
+    setEmployeeSelect(Object.assign({}, item));
+    addEmployeeComponent.current?.showEmployeeModal();
+  };
 
-      if (itemIndex !== -1) {
-        const newList = employeeList.map((item) => {
-          if (item.id === employee.id) {
-            return employee;
-          }
-          return item;
-        });
-        setEmployeeList(newList);
-      } else {
-        const newList = employeeList.concat(employee);
-        setEmployeeList(newList);
-      }
+  const watchSaveEmployee = (employee) => {
+    let itemIndex = employeeList.findIndex((item) => item.id === employee.id);
+
+    if (itemIndex !== -1) {
+      const newList = employeeList.map((item) => {
+        if (item.id === employee.id) {
+          return employee;
+        }
+        return item;
+      });
+      setEmployeeList(newList);
+    } else {
+      const newList = employeeList.concat(employee);
+      setEmployeeList(newList);
+    }
   };
 
   return (
@@ -121,7 +129,12 @@ const Dashboard = () => {
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
                       <td>
-                        <button className="btn btn-primary me-2">EDIT</button>
+                        <button
+                          className="btn btn-primary me-1"
+                          onClick={() => updateEmployeeRequest(item)}
+                        >
+                          EDIT
+                        </button>
                         <button
                           className="btn btn-danger"
                           onClick={() => deleteEmployeeRequest(item)}
@@ -137,8 +150,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-            <EmployeeSave ref={addEmployeeComponent} employee={employeeSelect} onSaved={(e) => watchSaveEmployee(e)}/>
-            <EmployeeDelete ref={deleteEmployeeComponent} onConfirmed={() => deleteEmployee()}/>
+      <EmployeeSave
+        ref={addEmployeeComponent}
+        employee={employeeSelect}
+        onSaved={(e) => watchSaveEmployee(e)}
+      />
+      <EmployeeDelete
+        ref={deleteEmployeeComponent}
+        onConfirmed={() => deleteEmployee()}
+      />
     </div>
   );
 };

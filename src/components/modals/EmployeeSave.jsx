@@ -4,6 +4,9 @@ import Employee from "../../common/models/Employee";
 import employeeService from "../../service/employeeService";
 
 const EmployeeSave = forwardRef((props, ref) => {
+
+    const [employee, setEmployee] = useState(new Employee('', '', '', '', '', '', '', ''));
+
   useImperativeHandle(ref, () => ({
     //interaction with parent
     showEmployeeModal() {
@@ -17,9 +20,7 @@ const EmployeeSave = forwardRef((props, ref) => {
     setEmployee(props.Employee);
   }, [props.Employee]);
 
-  const [employee, setEmployee] = useState(
-    new Employee("", "", "", "", "", "", "", "")
-  );
+
   const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
@@ -30,19 +31,19 @@ const EmployeeSave = forwardRef((props, ref) => {
     setSubmitted(true);
 
     if (
-      !Employee.employeeFirstName ||
-      !Employee.employeeLastName ||
-      !Employee.employeeDateOfBirth ||
-      !Employee.employeeEmailAddress ||
-      !Employee.employeeSkillLevel ||
-      !Employee.isActive ||
-      !Employee.employeeAge
+      !employee.employeeFirstName ||
+      !employee.employeeLastName ||
+      !employee.employeeDateOfBirth ||
+      !employee.employeeEmailAddress ||
+      !employee.employeeSkillLevel ||
+      !employee.isActive ||
+      !employee.employeeAge
     ) {
       return;
     }
 
     employeeService
-      .addEmployee(Employee)
+      .addEmployee(employee)
       .then((response) => {
         //...
         props.onSaved(response.data);
