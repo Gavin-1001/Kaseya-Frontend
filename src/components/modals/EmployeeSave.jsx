@@ -4,26 +4,25 @@ import Employee from "../../common/models/Employee";
 import employeeService from "../../service/employeeService";
 
 const EmployeeSave = forwardRef((props, ref) => {
-
-    const [employee, setEmployee] = useState(new Employee('', '', '', '', '', '', '', ''));
-
   useImperativeHandle(ref, () => ({
     //interaction with parent
     showEmployeeModal() {
       setTimeout(() => {
         setShow(true);
       }, 0);
-    },
+    }
   }));
 
-  useEffect(() => {
-    setEmployee(props.Employee);
-  }, [props.Employee]);
-
-
+  const [employee, setEmployee] = useState(
+    new Employee("", "", "", "", "", "", "", "")
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setEmployee(props.employee);
+  }, [props.employee]);
 
   const saveEmployee = (e) => {
     e.preventDefault();
@@ -60,12 +59,12 @@ const EmployeeSave = forwardRef((props, ref) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setEmployee((prevState) => {
+    setEmployee((prevState => {
       return {
         ...prevState,
-        [name]: value,
+        [name]: value
       };
-    });
+    }));
   };
 
   return (
@@ -85,9 +84,9 @@ const EmployeeSave = forwardRef((props, ref) => {
         </div>
 
         <div className="modal-body">
-          {errorMessage && (
+          {errorMessage && 
             <div className="alert alert-danger">{errorMessage}</div>
-          )}
+          }
 
           <div className="form-group">
             <label htmlFor="employeeFirstName">First Name: </label>
@@ -106,7 +105,7 @@ const EmployeeSave = forwardRef((props, ref) => {
           <div className="form-group">
             <label htmlFor="employeeLastName">Last Name: </label>
             <input
-            type="text"
+              type="text"
               name="employeeLastName"
               placeholder="Last Name"
               className="form-control"
