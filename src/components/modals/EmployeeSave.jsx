@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Employee from "../../common/models/Employee";
+//import Skill from "../../common/models/Skill.js";
 import employeeService from "../../service/employeeService";
 
 const EmployeeSave = forwardRef((props, ref) => {
@@ -10,19 +11,32 @@ const EmployeeSave = forwardRef((props, ref) => {
       setTimeout(() => {
         setShow(true);
       }, 0);
-    }
+    },
   }));
 
   const [employee, setEmployee] = useState(
     new Employee("", "", "", "", "", "", "", "")
   );
+
+ // const [skill, setSkill] = useState(new Skill ("","", ""))
   const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
+  const [skill, setSkill] = useState("advanced");
+  
+
+//   const skillOptions = ({employeeSkill, employeeChange}) => {
+//   const options = [
+//     {label: "Beginner", value: "Beginner"},
+//     {label: "Intermediate", value: "Intermediate"},
+//     {label: "Advanced", value: "Advanced"},
+//   ]
 
   useEffect(() => {
     setEmployee(props.employee);
   }, [props.employee]);
+
+
 
   const saveEmployee = (e) => {
     e.preventDefault();
@@ -59,12 +73,12 @@ const EmployeeSave = forwardRef((props, ref) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setEmployee((prevState => {
+    setEmployee((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
-    }));
+    });
   };
 
   return (
@@ -84,9 +98,9 @@ const EmployeeSave = forwardRef((props, ref) => {
         </div>
 
         <div className="modal-body">
-          {errorMessage && 
+          {errorMessage && (
             <div className="alert alert-danger">{errorMessage}</div>
-          }
+          )}
 
           <div className="form-group">
             <label htmlFor="employeeFirstName">First Name: </label>
@@ -145,7 +159,7 @@ const EmployeeSave = forwardRef((props, ref) => {
             <div className="invalid-feedback">Date of Birth is required</div>
           </div>
 
-          {/*Skill Level*/}
+          {/*Skill Level INPUT*/}
           <div className="form-group">
             <label htmlFor="employeeSkillLevel">Skill Level </label>
             <input
@@ -159,6 +173,27 @@ const EmployeeSave = forwardRef((props, ref) => {
             />
             <div className="invalid-feedback">Skill Level is required</div>
           </div>
+
+          {/* <div className="form-group">
+            <label htmlFor="employeeSkillLevel">Skill Level </label>
+            <input
+              type="radio"
+              name="skillLevel"
+              className="form-control"
+              value={Employee.skillLevel}
+            />
+          </div> */}
+
+          {/* <div className="form-group">
+            <label htmlFor="employeeSkillLevel">Choose skill</label>
+                <select className="form-control" name="skill" value={skill} required onChange={(e) => handleChange(e)}>
+                    <option value="beginner"> Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+                * console.log(Employee.skillsSelect.value) *
+                <div className="invalid-feedback">Select is required</div>
+          </div> */}
 
           {/*isActive*/}
           <div className="form-group">

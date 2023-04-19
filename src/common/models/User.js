@@ -4,6 +4,5 @@ export default class User{
         this.username = username;
         this.password = password;
         this.token = token;
-        this.role = role;
     }
 }

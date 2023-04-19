@@ -34,7 +34,7 @@ const Dashboard = () => {
   };
 
   const createEmployeeRequest = () => {
-    setEmployeeSelect(new Employee("", "", "", "", "", "", ""));
+    setEmployeeSelect(new Employee("", "", "", "", "", "", "",""));
     addEmployeeComponent.current?.showEmployeeModal();
   };
 
@@ -49,9 +49,7 @@ const Dashboard = () => {
         console.log(err);
       });
   };
-  {
-    /*Update Emploee will use the same code for modal as the addEmployee modal*/
-  }
+
   const updateEmployeeRequest = (item) => {
     setEmployeeSelect(Object.assign({}, item));
     addEmployeeComponent.current?.showEmployeeModal();
