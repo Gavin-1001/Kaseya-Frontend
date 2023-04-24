@@ -3,6 +3,9 @@ import { Modal } from "react-bootstrap";
 import Employee from "../../common/models/Employee";
 //import Skill from "../../common/models/Skill.js";
 import employeeService from "../../service/employeeService";
+import Skill from "../../common/models/Skill";
+import './EmployeeSave.css'
+import skillService from "../../service/skillService";
 
 const EmployeeSave = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -18,25 +21,23 @@ const EmployeeSave = forwardRef((props, ref) => {
     new Employee("", "", "", "", "", "", "", "")
   );
 
- // const [skill, setSkill] = useState(new Skill ("","", ""))
+  const [skill, setSkill] = useState(new Skill("", "", ""));
+
   const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
-  const [skill, setSkill] = useState("advanced");
-  
-
-//   const skillOptions = ({employeeSkill, employeeChange}) => {
-//   const options = [
-//     {label: "Beginner", value: "Beginner"},
-//     {label: "Intermediate", value: "Intermediate"},
-//     {label: "Advanced", value: "Advanced"},
-//   ]
 
   useEffect(() => {
     setEmployee(props.employee);
   }, [props.employee]);
 
+  useEffect(() => {
+    setSkill(props.skill);
+  }, [props.skill])
 
+  // remove the skillsInput in the HTML and skillsName and skillDescription, in the backend remove the employee controller that
+  // is the "test" controller.
+  //The issue could be the Skill needs to be referenced somewhere
 
   const saveEmployee = (e) => {
     e.preventDefault();
@@ -48,15 +49,28 @@ const EmployeeSave = forwardRef((props, ref) => {
       !employee.employeeLastName ||
       !employee.employeeDateOfBirth ||
       !employee.employeeEmailAddress ||
-      !employee.employeeSkillLevel ||
+      !skill.skillName ||
+      !skill.skillDescription ||
       !employee.isActive ||
       !employee.employeeAge
     ) {
       return;
     }
-
     employeeService
       .addEmployee(employee)
+      .then((response) => {
+        //...
+        props.onSaved(response.data);
+        setShow(false);
+        setSubmitted(false);
+      })
+      .catch((err) => {
+        setErrorMessage("Unexpected error occurred.");
+        console.log(err);
+      });
+
+      skillService
+      .addSkills(skill)
       .then((response) => {
         //...
         props.onSaved(response.data);
@@ -159,41 +173,37 @@ const EmployeeSave = forwardRef((props, ref) => {
             <div className="invalid-feedback">Date of Birth is required</div>
           </div>
 
-          {/*Skill Level INPUT*/}
+          {/*Skill Name */}
           <div className="form-group">
-            <label htmlFor="employeeSkillLevel">Skill Level </label>
+            <label htmlFor="skillName">Skill Name </label>
             <input
               type="text"
-              name="employeeSkillLevel"
-              placeholder="employeeSkillLevel"
+              name="skillName"
+              placeholder="skillName"
               className="form-control"
-              value={Employee.employeeSkillLevel}
+              value={Skill.skillName}
               onChange={(e) => handleChange(e)}
               required
             />
-            <div className="invalid-feedback">Skill Level is required</div>
+            <div className="invalid-feedback">Skill Name is required</div>
           </div>
 
-          {/* <div className="form-group">
-            <label htmlFor="employeeSkillLevel">Skill Level </label>
+          {/*Skill Description*/}
+          <div className="form-group">
+            <label htmlFor="skillDescription">Skill Description </label>
             <input
-              type="radio"
-              name="skillLevel"
+              type="text"
+              name="skillDescription"
+              placeholder="Skill Description"
               className="form-control"
-              value={Employee.skillLevel}
+              value={Skill.skillDescription}
+              onChange={(e) => handleChange(e)}
+              required
             />
-          </div> */}
-
-          {/* <div className="form-group">
-            <label htmlFor="employeeSkillLevel">Choose skill</label>
-                <select className="form-control" name="skill" value={skill} required onChange={(e) => handleChange(e)}>
-                    <option value="beginner"> Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                * console.log(Employee.skillsSelect.value) *
-                <div className="invalid-feedback">Select is required</div>
-          </div> */}
+            <div className="invalid-feedback">
+              Skill Description is required
+            </div>
+          </div>
 
           {/*isActive*/}
           <div className="form-group">
@@ -214,7 +224,7 @@ const EmployeeSave = forwardRef((props, ref) => {
           <div className="form-group">
             <label htmlFor="employeeAge">Employee Age: </label>
             <input
-              type="text"
+              type="number"
               name="employeeAge"
               placeholder="employeeAge"
               className="form-control"

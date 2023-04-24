@@ -112,3 +112,8 @@ button {
 .line {
     display: inline-block;
 }
+
+.button-container{
+    display:flex;
+    justify-content: space-between;
+}

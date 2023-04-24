@@ -1,30 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import employeeService from "../../service/employeeService";
-import { Link } from "react-router-dom";
 import Employee from "./../../common/models/Employee";
 
 import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
 import { EmployeeSave } from "../../components/modals/EmployeeSave";
-import skillService from "../../service/skillService";
 
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
-  const [skillList, setSkillList] = useState([]);
   const [employeeSelect, setEmployeeSelect] = useState(new Employee());
   const [errorMessage, setErrorMessage] = useState("");
 
   const deleteEmployeeComponent = useRef();
   const addEmployeeComponent = useRef();
 
+  //implement a mounted method, which is a callback method that is invoked immediately after the
+  //explanation lecture 77 1:15
+
   useEffect(() => {
     employeeService.getAllEmployees().then((response) => {
       setEmployeeList(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    skillService.getAllSkills().then((response) => {
-      setSkillList(response.data);
     });
   }, []);
 
@@ -40,7 +34,7 @@ const Dashboard = () => {
   };
 
   const createEmployeeRequest = () => {
-    setEmployeeSelect(new Employee("", "", "", "", "", "", "", ""));
+    setEmployeeSelect(new Employee("", "", "", "", "", "", "",""));
     addEmployeeComponent.current?.showEmployeeModal();
   };
 
@@ -111,7 +105,7 @@ const Dashboard = () => {
                     <th scope="col">Last Name</th>
                     <th scope="col">Date Of Birth</th>
                     <th scope="col">Email Address</th>
-                    <th scope="col">Skill</th>
+                    <th scope="col">Skill Level</th>
                     <th scope="col">Active</th>
                     <th scope="col">Age</th>
                     <th scope="col">Actions</th>
@@ -129,18 +123,6 @@ const Dashboard = () => {
                         ).toLocaleDateString()}
                       </td>
                       <td>{item.employeeEmailAddress}</td>
-                      <td>
-                        <Link
-                          to="/skills"
-                          className="btn btn-link"
-                          style={{ color: "darkgray" }}
-                        >
-                          Skills
-                        </Link>
-                        {/*THERE IS AN ERROR ON THE LINK. HAVE THE SKILLS
-                           DISPLAYED ON THE SKILLS PAGE*/}
-                      </td>
-
                       <td>{item.employeeSkillLevel}</td>
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
