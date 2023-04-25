@@ -33,7 +33,7 @@ const EmployeeSave = forwardRef((props, ref) => {
 
   useEffect(() => {
     setSkill(props.skill);
-  }, [props.skill])
+  }, [props.skill]);
 
   // remove the skillsInput in the HTML and skillsName and skillDescription, in the backend remove the employee controller that
   // is the "test" controller.
@@ -70,7 +70,7 @@ const EmployeeSave = forwardRef((props, ref) => {
       });
 
       skillService
-      .addSkills(skill)
+      .addSkill(skill)
       .then((response) => {
         //...
         props.onSaved(response.data);

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import skillService from '../../service/skillService';
 import { Link } from 'react-router-dom';
+import Employee from '../../common/models/Employee';
 
 const Skills = () => {
 
@@ -9,11 +10,19 @@ const Skills = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [skillsList, setSkillsList] = useState([]);
 
+  <Employee data = {this.Employee.data}/>
+
+  // useEffect(() => {
+  //   skillService.getAllSkills().then((response) => {
+  //     setSkillsList(response.data);
+  //   });
+  // }, [])
+
   useEffect(() => {
-    skillService.getAllSkills().then((response) => {
+    skillService.getSkillById().then((response) => {
       setSkillsList(response.data);
     });
-  }, [])
+  }, []);
 
   return (
     <div>
