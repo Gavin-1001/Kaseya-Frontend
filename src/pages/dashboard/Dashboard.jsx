@@ -144,7 +144,7 @@ const Dashboard = () => {
                       <td>{item.employeeSkillLevel}</td>
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
-                      <td>
+                      <td className="button-container">
                         <button
                           className="btn btn-primary me-1"
                           onClick={() => updateEmployeeRequest(item)}
