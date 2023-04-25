@@ -40,6 +40,12 @@ const Navbar = () => {
             Dashboard
           </NavLink>
         </li>
+        {/*SKILLS*/}
+        <li className="nav-item">
+          <NavLink to="/skills" className="nav-link">
+            Skills
+          </NavLink>
+        </li>
       </div>
       {/*NAVLINKS FOR LOGIN AND REGISTER*/}
       {!currentUser && (

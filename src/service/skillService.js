@@ -13,12 +13,12 @@ class skillService{
         return axios.get(SKILLS_API_URL + 'getSkills');
     }
 
-    addSkill(skill){
-        return axios.post(SKILLS_API_URL, skill, {headers: authHeaders()})
-    }
-
     getSkillById(skill){
         return axios.get(SKILLS_API_URL+"getSkillById/"+ skill.id)
+    }
+
+    saveSkill(skill){
+        return axios.post(SKILLS_API_URL + "skills/add", skill, {headers: authHeaders()})
     }
 }
 export default new skillService();
