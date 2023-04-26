@@ -4,7 +4,8 @@ import { authHeaders } from "../common/AuthHeaders";
 
 
 
-const SKILLS_API_URL = BASE_API_URL + '/api/'
+
+const SKILLS_API_URL = BASE_API_URL + '/api/skills/'
 
 class skillService{
 
@@ -18,7 +19,11 @@ class skillService{
     }
 
     saveSkill(skill){
-        return axios.post(SKILLS_API_URL + "skills/add", skill, {headers: authHeaders()})
+        return axios.post(SKILLS_API_URL + "add", skill, {headers: authHeaders()})
+    }
+
+    deleteSkill(skill) {
+        return axios.delete(SKILLS_API_URL + 'deleteSkill/' + skill.id, {headers: authHeaders()});
     }
 }
 export default new skillService();

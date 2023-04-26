@@ -7,7 +7,7 @@ const EmployeeDelete = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     showDeleteModal() {
       setShow(true);
-    },
+    },  
   }));
 
   const deleteEmployee = () => {

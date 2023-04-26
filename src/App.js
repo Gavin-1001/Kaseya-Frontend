@@ -8,7 +8,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import { AuthGuard } from "./AuthGuard/auth.guard";
 import { Role } from "./common/models/Role";
 import Logout from "./pages/Logout/Logout";
-import Skills from './pages/skills/Skills'
+import { Skills } from "./pages/skills/Skills";
+
 
 function App() {
   return (

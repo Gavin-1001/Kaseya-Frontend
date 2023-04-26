@@ -87,7 +87,7 @@ const SkillSave = forwardRef((props, ref) => {
             name="skillName"
             placeholder="Skill Name"
             className="form-control"
-            value={skill.skillName}
+            value={Skill.skillName}
             onChange={(e) => handleChange(e)}
           />
           <div className="invalid-feedback">Skill Name is required!!</div>
@@ -100,10 +100,14 @@ const SkillSave = forwardRef((props, ref) => {
             name="skillDescription"
             placeholder="Skill Description"
             className="form-control"
-            value={skill.skillDescription}
+            value={Skill.skillDescription}
             onChange={(e) => handleChange(e)}
           />
           <div className="invalid-feedback">Skill Description is required!!</div>
+        </div>
+        <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>CLOSE</button>
+            <button type="submit" className="btn btn-primary">SAVE SKILL</button>
         </div>
       </form>
     </Modal>
