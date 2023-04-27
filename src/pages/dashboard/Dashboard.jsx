@@ -36,6 +36,7 @@ const Dashboard = () => {
 
   const deleteEmployeeRequest = (employee) => {
     setEmployeeSelect(employee);
+    console.log(employeeSelect); // this is where the id is printed to the console
     deleteEmployeeComponent.current?.showDeleteModal();
   };
 
@@ -49,11 +50,18 @@ const Dashboard = () => {
       .deleteEmployee(employeeSelect)
       .then((_) => {
         setEmployeeList(employeeList.filter((x) => x.id !== employeeSelect.id));
+        console.log(employeeSelect.id); //id shows here
       })
       .catch((err) => {
         setErrorMessage("Unexpected Error");
         console.log(err);
       });
+  };
+
+  const goToSkill = () => {
+   //setEmployeeSelect();
+    // console.log(employeeSelect);
+    console.log(employeeList.filter((x) => x.id !== employeeSelect.id));
   };
 
   const updateEmployeeRequest = (item) => {
@@ -130,13 +138,19 @@ const Dashboard = () => {
                       </td>
                       <td>{item.employeeEmailAddress}</td>
                       <td>
-                        <Link
+                        {/* <Link
                           to="/skills"
                           className="btn btn-link"
                           style={{ color: "darkgray" }}
                         >
                           Skills
-                        </Link>
+                        </Link> */}
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => goToSkill()}
+                        >
+                          Create Skill
+                        </button>
                       </td>
 
                       <td>{item.isActive.toString()}</td>

@@ -23,6 +23,7 @@ class employeeService {
         return axios.put(API_URL, + '/' + employee.id, {headers: authHeaders()});
 
     }
+
 }
 
 export default new employeeService();
