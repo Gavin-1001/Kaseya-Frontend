@@ -37,6 +37,10 @@ const Skills = () => {
     deleteComponent.current?.showDeleteModal();
   };
 
+  const addSkill = (skill) => {
+    console.log("SKILL");
+  }
+
   const saveSkillWatcher = (skill) => {
     let itemIndex = skillList.findIndex((item) => item.id === skill.id);
 
@@ -94,15 +98,15 @@ const Skills = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Skill Name</th>
                     <th scope="col">Skill Description</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {skillList.map((item, ind) => (
                     <tr key={item.id}>
-                      <th scope="row">{ind + 1}</th>
+
                       <td>{item.skillName}</td>
                       <td>{item.skillDescription}</td>
                       <td>
@@ -118,6 +122,8 @@ const Skills = () => {
                         >
                           Delete
                         </button>
+                        <button className="btn btn-primary me-"
+                          onClick={() => addSkill(item)}>Add Skill</button>
                       </td>
                     </tr>
                   ))}

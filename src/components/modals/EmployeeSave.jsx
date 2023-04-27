@@ -152,7 +152,7 @@ const EmployeeSave = forwardRef((props, ref) => {
 
           {/*isActive*/}
           <div className="form-group">
-            <label htmlFor="isActive">isActive: </label>
+            <label htmlFor="isActive">isActive:</label>
             <input
               type="text"
               name="isActive"

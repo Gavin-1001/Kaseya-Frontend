@@ -137,11 +137,8 @@ const Dashboard = () => {
                         >
                           Skills
                         </Link>
-                        {/*THERE IS AN ERROR ON THE LINK. HAVE THE SKILLS
-                           DISPLAYED ON THE SKILLS PAGE*/}
                       </td>
 
-                      <td>{item.employeeSkillLevel}</td>
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
                       <td className="button-container">
