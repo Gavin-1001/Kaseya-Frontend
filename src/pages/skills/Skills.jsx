@@ -38,7 +38,7 @@ const Skills = () => {
   };
 
   const addSkill = (skill) => {
-    console.log("SKILL");
+    console.log("SKILLsssss");
   }
 
   const saveSkillWatcher = (skill) => {
@@ -106,7 +106,7 @@ const Skills = () => {
                 <tbody>
                   {skillList.map((item, ind) => (
                     <tr key={item.id}>
-
+                      
                       <td>{item.skillName}</td>
                       <td>{item.skillDescription}</td>
                       <td>

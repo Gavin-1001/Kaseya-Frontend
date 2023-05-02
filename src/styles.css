@@ -7,8 +7,9 @@ body {
 }
 
 .container {
-  margin: 1rem;
+  margin: 1rem; /*1rem*/
   text-align: center;
+  
 }
 
 .nav {

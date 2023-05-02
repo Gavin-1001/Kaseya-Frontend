@@ -142,7 +142,7 @@ const EmployeeSave = forwardRef((props, ref) => {
             <input
               type="text"
               name="employeeDateOfBirth"
-              placeholder="employeeDateOfBirth"
+              placeholder="YYYY/MM/DD"
               className="form-control"
               value={Employee.employeeDateOfBirth}
               onChange={(e) => handleChange(e)}

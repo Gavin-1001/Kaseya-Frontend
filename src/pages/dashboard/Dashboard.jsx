@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import employeeService from "../../service/employeeService";
-import { Link } from "react-router-dom";
 import Employee from "./../../common/models/Employee";
 
 import { EmployeeDelete } from "../../components/modals/EmployeeDelete";
 import { EmployeeSave } from "../../components/modals/EmployeeSave";
 import skillService from "../../service/skillService";
+import Skill from "../../common/models/Skill";
+import AddSkill from "../../components/modals/AddSkill/AddSkill";
 
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
   const [skillList, setSkillList] = useState([]);
   const [employeeSelect, setEmployeeSelect] = useState(new Employee());
+  const [skillSelect, setSkillSelect] = useState(new Skill());
   const [errorMessage, setErrorMessage] = useState("");
 
   const deleteEmployeeComponent = useRef();
   const addEmployeeComponent = useRef();
+  const addSkillComponent = useRef();
 
   useEffect(() => {
     employeeService.getAllEmployees().then((response) => {
@@ -28,11 +31,6 @@ const Dashboard = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //     employeeService.getAllEmployees().then((response) => {
-  //         setEmployeeList(response.data);
-  //     });
-  // }, []);
 
   const deleteEmployeeRequest = (employee) => {
     setEmployeeSelect(employee);
@@ -44,6 +42,12 @@ const Dashboard = () => {
     setEmployeeSelect(new Employee("", "", "", "", "", "", "", ""));
     addEmployeeComponent.current?.showEmployeeModal();
   };
+
+  const addSkillRequest = () => {
+    setSkillSelect(new Skill("","",""));
+    addSkillComponent.current?.showAddSkillModal();
+  }
+
 
   const deleteEmployee = () => {
     employeeService
@@ -59,9 +63,21 @@ const Dashboard = () => {
   };
 
   const goToSkill = () => {
-   //setEmployeeSelect();
-    // console.log(employeeSelect);
-    console.log(employeeList.filter((x) => x.id !== employeeSelect.id));
+  // setEmployeeSelect();
+  // console.log(employeeSelect);
+  // console.log(employeeList.filter((x) => x.id !== employeeSelect.id));
+  // skillService.saveSkill(skillSelect)
+    ////////////////
+
+    skillService.saveSkill(skillSelect).then((_) =>{
+      setSkillSelect(skillList.filter((x) => x.id !== skillSelect.id));
+      console.log(employeeSelect.id);
+      console.log("TEST")
+    }).catch((err) =>{
+      setErrorMessage("THERE WAS AN ERROR")
+      console.log(err);
+    })
+
   };
 
   const updateEmployeeRequest = (item) => {
@@ -137,17 +153,11 @@ const Dashboard = () => {
                         ).toLocaleDateString()}
                       </td>
                       <td>{item.employeeEmailAddress}</td>
-                      <td>
-                        {/* <Link
-                          to="/skills"
-                          className="btn btn-link"
-                          style={{ color: "darkgray" }}
-                        >
-                          Skills
-                        </Link> */}
+                      <td className="button-container">
                         <button
-                          className="btn btn-primary"
-                          onClick={() => goToSkill()}
+                          className="btn btn-info"
+                          // onClick={() => goToSkill()}
+                          onClick={() => addSkillRequest(item)}
                         >
                           Create Skill
                         </button>
@@ -186,6 +196,9 @@ const Dashboard = () => {
         ref={deleteEmployeeComponent}
         onConfirmed={() => deleteEmployee()}
       />
+      <AddSkill 
+        ref={addSkillComponent}
+        onConfirmed={() => goToSkill()} />
     </div>
   );
 };

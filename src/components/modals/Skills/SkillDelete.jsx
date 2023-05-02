@@ -28,7 +28,7 @@ const SkillDelete = forwardRef((props, ref) => {
             </div>
 
             <div className="modal-body">
-                Are you sure to delete the selected product?
+                Are you sure to delete this skill?
             </div>
 
             <div className="modal-footer">
