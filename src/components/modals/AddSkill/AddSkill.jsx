@@ -33,6 +33,7 @@ import Employee from "../../../common/models/Employee";
     const [employee, setEmployee] = useState(
       new Employee("", "", "", "", "", "", "", "")
     );
+    const [employeeSelect, setEmployeeSelect] = useState(new Employee());
     // eslint-disable-next-line
     const [infoMessage, setInfoMessage] = useState("");
   
@@ -56,8 +57,8 @@ import Employee from "../../../common/models/Employee";
         });
     };
 
-    const saveSkillToEmployee = (skill, employee) => { //skill belonged here
-        //console.log("THIS IS THE CURRENT USER "+employee?.id)
+    const saveSkillToEmployee = (skill, employee ) => { //skill belonged here (employee)
+        console.log("THIS IS THE CURRENT EMPLOYEE "+employeeSelect.id)
          
         const addSkillToEmployee = new AddSkillToEmployee(employee.id, skill.skillId);
 
