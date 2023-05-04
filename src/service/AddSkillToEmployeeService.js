@@ -14,8 +14,8 @@ class AddSkillToEmployeeService {
   // }
 
   
-  saveAddSkillToEmployee(skillId, EmployeeId) {
-    return axios.post(API_URL, skillId, EmployeeId, { headers: authHeaders() });
+  saveAddSkillToEmployee(addSkillToEmployee) {
+    return axios.post(API_URL, addSkillToEmployee, { headers: authHeaders() });
   }
   
 
