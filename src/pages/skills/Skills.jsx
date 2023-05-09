@@ -3,15 +3,13 @@ import Skill from "./../../common/models/Skill";
 import skillService from "../../service/skillService";
 import SkillSave from "../../components/modals/Skills/SkillSave";
 import { SkillDelete } from "../../components/modals/Skills/SkillDelete";
-import Employee from "../../common/models/Employee";
+
 
 const Skills = () => {
-  const [skillList, setSkillList] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState(new Skill("", "", ""));
   const [errorMessage, setErrorMessage] = useState("");
-  const [employee, setEmployee] = useState(new Employee("", "", "", "", "", "", "", ""));
-  const [employeeSelect, setEmployeeSelect] = useState(new Employee());
-  
+  const [skillList, setSkillList] = useState([]);
+
 
   const saveSkillComponent = useRef();
   const deleteComponent = useRef();
@@ -68,8 +66,10 @@ const Skills = () => {
         });
     };
 
-    const getSkillId = (skill, employeeSelect) => {
-      console.log("THIS IS SKILL ID" + skill.id + "EMPLOYEE ID is" + employeeSelect.id);
+    //test function to get skill.id and employee.id to print before adding to the service to persist 
+    // eslint-disable-next-line
+    const getSkillId = (skill) => {
+      console.log("THIS IS SKILL ID " + skill.id + " EMPLOYEE ID is");
     }
 
     return (
@@ -124,12 +124,12 @@ const Skills = () => {
                           >
                             Delete
                           </button>
-                          <button
+                          {/* <button
                             className="btn btn-primary me-"
-                            onClick={() => getSkillId(item, employee)}
+                            onClick={(e) => getSkillId(item)}
                           >
                             Add Skill
-                          </button>
+                          </button> */}
                         </td>
                       </tr>
                     ))}

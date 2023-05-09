@@ -4,6 +4,7 @@ import Employee from "../../common/models/Employee";
 import employeeService from "../../service/employeeService";
 import './EmployeeSave.css'
 
+
 const EmployeeSave = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     //interaction with parent
@@ -18,7 +19,8 @@ const EmployeeSave = forwardRef((props, ref) => {
     new Employee("", "", "", "", "", "", "", "")
   );
 
-  const [errorMessage, setErrorMessage] = useState("");
+
+  const [errorMessage, setErrorMessage] = useState("", );
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
 

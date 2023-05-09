@@ -23,14 +23,10 @@ const Dashboard = () => {
     employeeService.getAllEmployees().then((response) => {
       setEmployeeList(response.data);
     });
-  }, []);
-
-  useEffect(() => {
     skillService.getAllSkills().then((response) => {
       setSkillList(response.data);
     });
   }, []);
-
 
   const deleteEmployeeRequest = (employee) => {
     setEmployeeSelect(employee);
@@ -44,17 +40,16 @@ const Dashboard = () => {
   };
 
   const addSkillRequest = () => {
-    setSkillSelect(new Skill("","",""));
+    setSkillSelect(new Skill("", "", ""));
     addSkillComponent.current?.showAddSkillModal();
-  }
-
+  };
 
   const deleteEmployee = () => {
     employeeService
       .deleteEmployee(employeeSelect)
       .then((_) => {
         setEmployeeList(employeeList.filter((x) => x.id !== employeeSelect.id));
-        console.log("ASKDJHSAD "+employeeSelect.id); //id shows here
+        console.log("ASKDJHSAD " + employeeSelect.id); //id shows here
       })
       .catch((err) => {
         setErrorMessage("Unexpected Error");
@@ -63,21 +58,23 @@ const Dashboard = () => {
   };
 
   const goToSkill = () => {
-  // setEmployeeSelect();
-  // console.log(employeeSelect);
-  // console.log(employeeList.filter((x) => x.id !== employeeSelect.id));
-  // skillService.saveSkill(skillSelect)
+    // setEmployeeSelect();
+    // console.log(employeeSelect);
+    // console.log(employeeList.filter((x) => x.id !== employeeSelect.id));
+    // skillService.saveSkill(skillSelect)
     ////////////////
 
-    skillService.saveSkill(skillSelect).then((_) =>{
-      setSkillSelect(skillList.filter((x) => x.id !== skillSelect.id));
-      console.log(employeeSelect.id);
-      console.log("TEST")
-    }).catch((err) =>{
-      setErrorMessage("THERE WAS AN ERROR")
-      console.log(err);
-    })
-
+    skillService
+      .saveSkill(skillSelect)
+      .then((_) => {
+        setSkillSelect(skillList.filter((x) => x.id !== skillSelect.id));
+        console.log(employeeSelect.id);
+        console.log("TEST");
+      })
+      .catch((err) => {
+        setErrorMessage("THERE WAS AN ERROR");
+        console.log(err);
+      });
   };
 
   const updateEmployeeRequest = (item) => {
@@ -196,9 +193,7 @@ const Dashboard = () => {
         ref={deleteEmployeeComponent}
         onConfirmed={() => deleteEmployee()}
       />
-      <AddSkill 
-        ref={addSkillComponent}
-        onConfirmed={() => goToSkill()} />
+      <AddSkill ref={addSkillComponent} onConfirmed={() => goToSkill()} />
     </div>
   );
 };
