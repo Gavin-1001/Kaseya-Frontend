@@ -7,6 +7,7 @@ import Skill from "../../common/models/Skill";
 import skillService from "../../service/skillService";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { Select } from "react-dropdown-select";
 
 const EmployeeSave = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -82,6 +83,11 @@ const EmployeeSave = forwardRef((props, ref) => {
       });
   };
 
+  const options = [
+    { label: 'true', value: true },
+    { label: 'false', value: false },
+  ];
+
   //<input name="x" value="y">
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,6 +106,8 @@ const EmployeeSave = forwardRef((props, ref) => {
       };
     });
   };
+
+
 
   return (
     <Modal show={show}>
@@ -149,6 +157,7 @@ const EmployeeSave = forwardRef((props, ref) => {
             />
             <div className="invalid-feedback">Last Name is required.</div>
           </div>
+
           {/*Email Address*/}
           <div className="form-group">
             <label htmlFor="employeeEmailAddress">Email Address: </label>
@@ -212,7 +221,7 @@ const EmployeeSave = forwardRef((props, ref) => {
           </div>
 
           {/* isActive*/}
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="isActive">isActive:</label>
             <input
               type="text"
@@ -224,6 +233,11 @@ const EmployeeSave = forwardRef((props, ref) => {
               required
             />
             <div className="invalid-feedback">IsActive is required</div>
+          </div> */}
+
+          <div className="form-group ">
+            <label htmlFor="select">isActive</label>
+            <Select name="select" options={options}></Select>
           </div>
 
           {/*Age*/}

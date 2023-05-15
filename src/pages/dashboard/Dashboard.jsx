@@ -131,7 +131,7 @@ const Dashboard = () => {
                     <th scope="col">Last Name</th>
                     <th scope="col">Date Of Birth</th>
                     <th scope="col">Email Address</th>
-                    <th scope="col">Skill</th>
+                    {/* <th scope="col">Skill</th> */}
                     <th scope="col">Active</th>
                     <th scope="col">Age</th>
                     <th scope="col">Actions</th>
@@ -149,7 +149,7 @@ const Dashboard = () => {
                         ).toLocaleDateString()}
                       </td>
                       <td>{item.employeeEmailAddress}</td>
-                      <td className="button-container">
+                      {/* <td className="button-container">
                         <button
                           className="btn btn-info"
                           // onClick={() => goToSkill()}
@@ -157,7 +157,7 @@ const Dashboard = () => {
                         >
                           Create Skill
                         </button>
-                      </td>
+                      </td> */}
 
                       <td>{item.isActive.toString()}</td>
                       <td>{item.employeeAge}</td>
