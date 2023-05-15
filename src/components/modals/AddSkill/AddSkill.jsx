@@ -61,7 +61,6 @@ const AddSkill = forwardRef((props, ref) => {
 
   const saveSkillToEmployee = (skill, employee) => {
     //skill belonged here (employee)
-
     if (!currentUser?.id) {
       setErrorMessage("You should login to continue.");
       return;

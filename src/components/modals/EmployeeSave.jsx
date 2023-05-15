@@ -2,8 +2,11 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Employee from "../../common/models/Employee";
 import employeeService from "../../service/employeeService";
-import './EmployeeSave.css'
-
+import "./EmployeeSave.css";
+import Skill from "../../common/models/Skill";
+import skillService from "../../service/skillService";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const EmployeeSave = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -18,9 +21,13 @@ const EmployeeSave = forwardRef((props, ref) => {
   const [employee, setEmployee] = useState(
     new Employee("", "", "", "", "", "", "", "")
   );
+  const [skill, setSkill] = useState(new Skill("", "", ""));
 
+  ////
+  const currentUser = useSelector((state) => state.user);
+  //
 
-  const [errorMessage, setErrorMessage] = useState("", );
+  const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -28,21 +35,21 @@ const EmployeeSave = forwardRef((props, ref) => {
     setEmployee(props.employee);
   }, [props.employee]);
 
-
-  // remove the skillsInput in the HTML and skillsName and skillDescription, in the backend remove the employee controller that
-  // is the "test" controller.
-  //The issue could be the Skill needs to be referenced somewhere
-
   const saveEmployee = (e) => {
     e.preventDefault();
 
     setSubmitted(true);
 
+    if (!currentUser.id) {
+      return <Navigate to={{ pathname: "/login" }} />;
+    }
     if (
       !employee.employeeFirstName ||
       !employee.employeeLastName ||
       !employee.employeeDateOfBirth ||
       !employee.employeeEmailAddress ||
+      !skill.skillName ||
+      !skill.skillDescription ||
       !employee.isActive ||
       !employee.employeeAge
     ) {
@@ -60,14 +67,33 @@ const EmployeeSave = forwardRef((props, ref) => {
         setErrorMessage("Unexpected error occurred.");
         console.log(err);
       });
-  };
 
+    skillService
+      .saveSkill(skill)
+      .then((response) => {
+        //...
+        props.onSaved(response.data);
+        setShow(false);
+        setSubmitted(false);
+      })
+      .catch((err) => {
+        setErrorMessage("Unexpected error occurred.");
+        console.log(err);
+      });
+  };
 
   //<input name="x" value="y">
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setEmployee((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+
+    setSkill((prevState) => {
       return {
         ...prevState,
         [name]: value,
@@ -153,7 +179,39 @@ const EmployeeSave = forwardRef((props, ref) => {
             <div className="invalid-feedback">Date of Birth is required</div>
           </div>
 
-          {/*isActive*/}
+          {/*Skill Name*/}
+          <div className="form-group">
+            <label htmlFor="skillName">Skill Name: </label>
+            <input
+              type="text"
+              name="skillName"
+              placeholder="skillName"
+              className="form-control"
+              value={Skill.skillName}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <div className="invalid-feedback">Skill Name is required</div>
+          </div>
+
+          {/*Skill Description*/}
+          <div className="form-group">
+            <label htmlFor="skillDescription">Skill Description: </label>
+            <input
+              type="text"
+              name="skillDescription"
+              placeholder="skillDescription"
+              className="form-control"
+              value={Skill.skillDescription}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <div className="invalid-feedback">
+              Skill Description is required
+            </div>
+          </div>
+
+          {/* isActive*/}
           <div className="form-group">
             <label htmlFor="isActive">isActive:</label>
             <input

@@ -49,7 +49,6 @@ const Dashboard = () => {
       .deleteEmployee(employeeSelect)
       .then((_) => {
         setEmployeeList(employeeList.filter((x) => x.id !== employeeSelect.id));
-        console.log("ASKDJHSAD " + employeeSelect.id); //id shows here
       })
       .catch((err) => {
         setErrorMessage("Unexpected Error");

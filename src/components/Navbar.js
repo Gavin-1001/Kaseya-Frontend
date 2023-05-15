@@ -18,7 +18,6 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark">
       <a href="https://google.com/" className="navbar-brand ms-1">
-        {/* <img src="#" className="App-Logo" alt="image" /> */}
       </a>
       <div className="navbar-nav me-auto">
 

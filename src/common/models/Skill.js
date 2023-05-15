@@ -1,8 +1,7 @@
 export default class Skill{
-    constructor (id, skillName, skillDescription, ){ //employeeId
+    constructor (id, skillName, skillDescription, ){ 
         this.id = id;
         this.skillName = skillName;
-        // this.employeeId = employeeId;
         this.skillDescription = skillDescription;
     }
 }
